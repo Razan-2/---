@@ -636,8 +636,13 @@ input:focus, select:focus {
 --------------------------------------*/
 @media (max-width: 768px) {
     /* Main Layout */
+    body {
+        overflow-x: hidden;
+    }
+    
     .dashboard-layout {
         flex-direction: column;
+        height: auto;
     }
 
     /* Top Header & Mobile Menu Button */
@@ -663,20 +668,21 @@ input:focus, select:focus {
     /* Sidebar - hidden by default, slide from right */
     .sidebar {
         position: fixed;
-        right: -320px; /* Hide off-screen completely */
+        right: 0; 
         top: 0;
         height: 100vh;
-        width: 260px;
-        max-width: 85vw; /* Prevent from breaking on very very small phones */
+        width: 280px;
+        max-width: 80vw;
         background: var(--bg-surface);
         box-shadow: -5px 0 25px rgba(0,0,0,0.1);
-        transition: right 0.3s ease-in-out;
-        z-index: 999;
-        overflow-y: auto; /* Handle small heights */
+        transform: translateX(100%); /* Reliable hiding to the right */
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+        overflow-y: auto; 
     }
     
     .sidebar.active {
-        right: 0; /* Slide in */
+        transform: translateX(0); /* Slide in */
     }
     
     /* Prevent text wrapping breaking the layout */
@@ -698,6 +704,8 @@ input:focus, select:focus {
     .main-content {
         height: auto;
         min-height: 100vh;
+        width: 100%;
+        flex: none;
     }
 
     .stats-grid {
